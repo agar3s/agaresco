@@ -1,33 +1,29 @@
 var express = require('express');
-var md = require('node-markdown').Markdown;
-var fs = require("fs");
+var path = require('path');
+require('express-namespace');
+
 var app = express();
 
-app.get('/', function(req, res){
-
-  fs.readFile('post/primer_post.md', 'utf8', function (err,data) {
-  	var body = "";
-	if (err) {
-	  console.log(err);
-	  body = err.toString();
-	}else{
-	  body = md(data);
-	}
-	res.setHeader('Content-Type', 'text/html; charset=utf-8');
-	res.setHeader('Content-Length', body.length);
-	res.end(body);
-  });
-
+app.configure(function(){
+  app.set('port', 80);
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
+  app.use(express.favicon());
+  app.use(express.logger('dev'));
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(express.cookieParser('your secret here'));
+  app.use(app.router);
+  app.use(require('less-middleware')({ src: __dirname + '/public' }));
+  app.use(express.static(path.join(__dirname, 'public')));
 });
 
-app.get('/:id', function(req, res) {
-  // Then you can use the value of the id with req.params.id
-  // So you use it to get the data from your database:
-  var body = 'Hello: '+req.params.id;
-  res.setHeader('Content-Type', 'text/plain');
-  res.setHeader('Content-Length', body.length);
-  res.end(body);
+//routes
+app.namespace('/', function() {
+  require('./routes/index')(app);
+    app.locals.pretty = true;
 });
 
 app.listen(8000);
+console.log(app.routes)
 console.log('Server running at http://127.0.0.1:8000/');
