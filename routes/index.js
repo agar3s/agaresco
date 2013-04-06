@@ -4,7 +4,7 @@ function RendererService(app) {
 
   app.get('/', function(req, res){
 
-    fs.readFile('post/second_post.md', 'utf8', function (err,data) {
+    fs.readFile('post/primer_post.md', 'utf8', function (err,data) {
       var body = "";
       if (err) {
         console.log(err);
@@ -16,7 +16,7 @@ function RendererService(app) {
       res.render('index', {
         title: 'cool',
         body: body,
-        otra:'h2>la concha</h2'
+        otra:'<h2>la concha</h2>'
       });
     });
 
