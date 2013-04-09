@@ -11,3 +11,11 @@ html con un estilo predeterminado.
 * colocar un estilo simple
 * crear una forma para indexar los diferentes posts, navegarlos y verlos de 
 manera individual
+
+``` bash
+$ node test --bench
+marked completed in 12071ms.
+showdown (reuse converter) completed in 27387ms.
+showdown (new converter) completed in 75617ms.
+markdown-js completed in 70069ms.
+```

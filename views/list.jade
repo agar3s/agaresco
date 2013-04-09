@@ -16,6 +16,6 @@ html
         li algo3
 
     div#middle-container.container
-      h1 #{title}
-      br
-      !{post}
+      ul
+        each file in files
+          li: a(href="#{file}") #{file}
