@@ -1,26 +1,14 @@
 function RendererService(app) {
   var fs = require("fs")
-     ,marked = require("marked");
+  ,marked = require("marked");
 
 
   app.get('/', function(req, res){
-
-    fs.readFile('post/primer_post.md', 'utf8', function (err, post) {
-      var body = "";
-      if (err) {
-        console.log(err);
-        post = err.toString();
-      }else{
-        post = marked(post);
-      }
-
-      res.render('index', {
-        title: 'cool',
-        post: post,
-        otra:'<h2>la concha</h2>'
+    fs.readdir('post/', function(err, files){
+      res.render('list', {
+        files: files
       });
     });
-
   });
 
   app.get('posts/', function(req, res){

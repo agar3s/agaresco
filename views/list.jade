@@ -1,21 +1,7 @@
-!!!
-html
-  head
-    if (locals.title)
-      title #{title} || Gio Beltran - agares
-    else
-      title Gio Beltran - agares
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,300,400,600', type='text/css')
-  body
+extends layout
 
-    header
-      ul
-        li algo
-        li algo2
-        li algo3
-
-    div#middle-container.container
-      ul
-        each file in files
-          li: a(href="#{file}") #{file}
+block content
+  div#middle-container.container
+    ul.nav.nav-list
+      each file in files
+        li: a(href="/posts/#{file}") #{file}
